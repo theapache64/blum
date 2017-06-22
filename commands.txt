@@ -1,0 +1,1 @@
+alias uninstall = "/home/theapache64/Android/Sdk/platform-tools/adb -d uninstall %s"
