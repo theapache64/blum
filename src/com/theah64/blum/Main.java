@@ -7,6 +7,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,11 +19,15 @@ public class Main {
     private static final Options OPTIONS = new Options()
             .addOption(FLAG_PROJECT_DIRECTORY, true, "Project directory")
             .addOption(FLAG_COMMAND, true, "Command");
-    private static final File COMMAND_DICTIONARY_FILE = new File(System.getProperty("user.dir") + File.separator + "commands.txt");
+
+    private static File COMMAND_DICTIONARY_FILE;
 
     public static void main(String[] args) {
 
         try {
+
+            final String pgmDir = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParent();
+            COMMAND_DICTIONARY_FILE = new File(pgmDir + File.separator + "commands.txt");
 
             //Parsing command
             final CommandLine cmd = new DefaultParser().parse(OPTIONS, args);
@@ -69,8 +74,9 @@ public class Main {
             }
 
         } catch (ParseException | CustomException | IOException e) {
-            e.printStackTrace();
             System.out.println("Error : " + e.getMessage());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
     }
 
