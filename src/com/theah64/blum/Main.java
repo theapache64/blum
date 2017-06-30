@@ -22,7 +22,8 @@ public class Main {
 
     private static File COMMAND_DICTIONARY_FILE;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
+
 
         try {
 
@@ -43,6 +44,8 @@ public class Main {
                     //Getting android project package name
                     final String projectPackageName = getProjectPackageName(projectFolder);
                     final String fullCommand = getFullCommand(command, projectPackageName);
+
+                    System.out.println(fullCommand);
 
                     //executing command
                     final Process process = Runtime.getRuntime().exec(fullCommand);
@@ -82,11 +85,10 @@ public class Main {
 
     private static String getFullCommand(String command, String projectPackageName) throws IOException, CustomException {
         final String getCommandFormat = getCommandFormat(command);
-        return String.format(getCommandFormat, projectPackageName);
+        return getCommandFormat.replaceAll("%s", projectPackageName);
     }
 
     private static String getCommandFormat(String command) throws IOException, CustomException {
-        final StringBuilder jsonConfigBuilder = new StringBuilder();
         final Pattern commandDicPattern = Pattern.compile(String.format(COMMAND_PARSE_REGEX_FORMAT, command));
         final BufferedReader br = new BufferedReader(new FileReader(COMMAND_DICTIONARY_FILE));
         String line = null;
