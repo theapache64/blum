@@ -96,7 +96,7 @@ public class Main {
         while ((line = br.readLine()) != null) {
             final Matcher matcher = commandDicPattern.matcher(line);
             if (matcher.find()) {
-                fullCommandFormat = matcher.group(1);
+                fullCommandFormat = matcher.group(2);
                 break;
             }
         }
@@ -109,7 +109,7 @@ public class Main {
 
     private static final Pattern PACKAGE_REGEX = Pattern.compile("^applicationId \"(.+)\"$");
 
-    private static final String COMMAND_PARSE_REGEX_FORMAT = "alias %s = \"(.+)\"";
+    private static final String COMMAND_PARSE_REGEX_FORMAT = "alias %s = (\"|')(.+)(\"|')";
 
     //To get package name from gradle file
     @NotNull
