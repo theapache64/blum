@@ -43,30 +43,33 @@ public class Main {
 
                     //Getting android project package name
                     final String projectPackageName = getProjectPackageName(projectFolder);
-                    final String fullCommand = getFullCommand(command, projectPackageName);
+                    final String[] fullCommands = getFullCommand(command, projectPackageName);
 
-                    System.out.println(fullCommand);
+                    for (final String fullCommand : fullCommands) {
 
-                    //executing command
-                    final Process process = Runtime.getRuntime().exec(fullCommand);
-                    BufferedReader stdInput = new BufferedReader(new
-                            InputStreamReader(process.getInputStream()));
+                        System.out.println(fullCommand);
 
-                    BufferedReader stdError = new BufferedReader(new
-                            InputStreamReader(process.getErrorStream()));
+                        //executing command
+                        final Process process = Runtime.getRuntime().exec(fullCommand);
+                        BufferedReader stdInput = new BufferedReader(new
+                                InputStreamReader(process.getInputStream()));
 
-                    String s = null;
-                    while ((s = stdError.readLine()) != null) {
-                        System.out.println(s);
+                        BufferedReader stdError = new BufferedReader(new
+                                InputStreamReader(process.getErrorStream()));
+
+                        String s = null;
+                        while ((s = stdError.readLine()) != null) {
+                            System.out.println(s);
+                        }
+
+                        while ((s = stdInput.readLine()) != null) {
+                            System.out.println(s);
+                        }
+
+
+                        stdInput.close();
+                        stdError.close();
                     }
-
-                    while ((s = stdInput.readLine()) != null) {
-                        System.out.println(s);
-                    }
-
-
-                    stdInput.close();
-                    stdError.close();
 
                 } else {
                     throw new CustomException("Command is null");
@@ -83,9 +86,9 @@ public class Main {
         }
     }
 
-    private static String getFullCommand(String command, String projectPackageName) throws IOException, CustomException {
+    private static String[] getFullCommand(String command, String projectPackageName) throws IOException, CustomException {
         final String getCommandFormat = getCommandFormat(command);
-        return getCommandFormat.replaceAll("%s", projectPackageName);
+        return getCommandFormat.replaceAll("%s", projectPackageName).split("&&");
     }
 
     private static String getCommandFormat(String command) throws IOException, CustomException {
