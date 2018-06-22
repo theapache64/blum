@@ -80,6 +80,7 @@ public class Main {
             }
 
         } catch (ParseException | CustomException | IOException e) {
+            e.printStackTrace();
             System.out.println("Error : " + e.getMessage());
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -117,7 +118,13 @@ public class Main {
     //To get package name from gradle file
     @NotNull
     private static String getProjectPackageName(String projectFolder) throws CustomException, IOException {
-        final File gradleFile = new File(projectFolder + "/app/build.gradle");
+        File gradleFile = new File(projectFolder + "/app/build.gradle");
+
+        if (!gradleFile.exists()) {
+            //React native support
+            gradleFile = new File(projectFolder + "/android/app/build.gradle");
+        }
+
         try {
             String packageName = null;
 
@@ -141,7 +148,7 @@ public class Main {
 
             return packageName;
         } catch (FileNotFoundException e) {
-            throw new CustomException(projectFolder + " is not an android project directory");
+            throw new CustomException(String.format("%s or %s/android is not an android project directory", projectFolder, projectFolder));
         }
     }
 
