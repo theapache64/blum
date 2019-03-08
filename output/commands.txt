@@ -1,4 +1,4 @@
 alias purge = "/home/theapache64/Android/Sdk/platform-tools/adb uninstall %s"
 alias purge_e = "/home/theapache64/Android/Sdk/platform-tools/adb -e uninstall %s"
 alias purge_d = "/home/theapache64/Android/Sdk/platform-tools/adb -d uninstall %s"
-
+alias ignite = "/home/theapache64/Android/Sdk/platform-tools/adb shell am force-stop %s && /home/theapache64/Android/Sdk/platform-tools/adb shell monkey -p %s -c android.intent.category.LAUNCHER 1"
