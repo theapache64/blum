@@ -1,1 +1,2 @@
 alias uninstall = "/home/theapache64/Android/Sdk/platform-tools/adb -d uninstall %s"
+alias launch = "adb shell am start -n "%s/%s.MainActivity" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER"
