@@ -1,5 +1,8 @@
 alias purge = "/home/theapache64/Android/Sdk/platform-tools/adb uninstall %s"
+alias splash = "/home/theapache64/Android/Sdk/platform-tools/adb shell am start -n %s/.feature.splash.SplashActivity --ez "should_bypass_general_checks" true"
 alias purge_e = "/home/theapache64/Android/Sdk/platform-tools/adb -e uninstall %s"
 alias purge_d = "/home/theapache64/Android/Sdk/platform-tools/adb -d uninstall %s"
 alias ignite = "/home/theapache64/Android/Sdk/platform-tools/adb shell am force-stop %s && /home/theapache64/Android/Sdk/platform-tools/adb shell monkey -p %s -c android.intent.category.LAUNCHER 1"
 alias launch = "/home/theapache64/Android/Sdk/platform-tools/adb shell monkey -p %s -c android.intent.category.LAUNCHER 1"
+alias skelton = "/home/theapache64/Android/Sdk/platform-tools/adb shell am force-stop %s && /home/theapache64/Android/Sdk/platform-tools/adb shell setprop debug.layout true && /home/theapache64/Android/Sdk/platform-tools/adb shell monkey -p %s -c android.intent.category.LEANBACK_LAUNCHER 1"
+alias skeltonOff = "/home/theapache64/Android/Sdk/platform-tools/adb shell am force-stop %s && /home/theapache64/Android/Sdk/platform-tools/adb shell setprop debug.layout false && /home/theapache64/Android/Sdk/platform-tools/adb shell monkey -p %s -c android.intent.category.LEANBACK_LAUNCHER 1"

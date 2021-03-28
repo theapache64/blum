@@ -1,2 +1,5 @@
 alias uninstall = "/home/theapache64/Android/Sdk/platform-tools/adb -d uninstall %s"
 alias launch = "adb shell am start -n "%s/%s.MainActivity" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER"
+alias pull_pref_d_func = "pull_pref_d_func"
+alias skelton = "adb shell am force-stop %s ; adb shell setprop debug.layout true ; adb shell monkey -p %s -c android.intent.category.LAUNCHER 1"
+alias skeltonOff = "adb shell am force-stop %s ; adb shell setprop debug.layout false ; adb shell monkey -p %s -c android.intent.category.LAUNCHER 1"
